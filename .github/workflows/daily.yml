@@ -2,8 +2,12 @@ name: daily-auto-commit
 
 on:
   schedule:
-    - cron: '17 3 * * *'   # fixed time daily
+    - cron: '17 3 * * *'
   workflow_dispatch:
+
+# ⭐ REQUIRED permission to push commits
+permissions:
+  contents: write
 
 jobs:
   commit-job:
