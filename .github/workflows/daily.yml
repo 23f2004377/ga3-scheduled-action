@@ -1,0 +1,26 @@
+name: daily-auto-commit
+
+on:
+  schedule:
+    - cron: '17 3 * * *'   # fixed time daily
+  workflow_dispatch:
+
+jobs:
+  commit-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout 23f2004377@ds.study.iitm.ac.in
+        uses: actions/checkout@v4
+
+      - name: create file change
+        run: |
+          echo "Updated at $(date)" >> daily_log.txt
+
+      - name: commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add daily_log.txt
+          git commit -m "daily automated commit" || echo "nothing to commit"
+          git push
